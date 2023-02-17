@@ -1,0 +1,138 @@
+#include<iostream>
+#include<stdlib.h>
+using namespace std;
+struct node
+{
+    int data;
+    struct node* next;
+}*start,*nn,*temp;
+
+void inser_beg(int x)
+{
+    nn=new node;
+    nn->data=x;
+    if(start==NULL)
+    {
+        start=nn;
+        nn->next=NULL;
+    }
+    else
+    {
+        nn->next=start;
+        start=nn;
+    }
+}
+void insert_end(int x)
+{
+    nn=new node;
+    nn->data=x;
+    nn->next=NULL;
+
+    if(start==NULL)
+    {
+        start=nn;
+    }
+    else
+    {
+        temp=start;
+        while(temp->next!=NULL)
+        {
+            temp=temp->next;
+        }
+        temp->next=nn;
+    }
+}
+void insert_after(int x,int el)
+{
+    nn=new node;
+    nn->data=x;
+    if(start==NULL)
+    {
+        start=nn;
+        nn->next=NULL;
+    }
+    else
+    {
+        temp=start;
+        while(temp!=NULL)
+        {
+            if(temp->data==el)
+            {
+                nn->next=temp->next;
+                temp->next=nn;
+            }
+            temp=temp->next;
+        }
+    }
+}
+void del_beg()
+{
+    if(start==NULL)
+{
+    cout<<"/n The list is empty \n";
+    return;
+}
+else
+{
+    nn = start;
+    start = start ->next;
+    free(nn);
+    cout<<"\n the first element is deleted ";
+}
+}
+// deletion at end
+void del_end()
+{
+struct node *ptr, *loc;
+if(start==NULL)
+{
+    cout<<"The list is empty"<<endl;
+    return;
+}
+else if(start->next==NULL)
+{
+    ptr = start;
+    start = NULL;
+    free(ptr);
+}
+else
+    {
+    loc=start; // Address of first node
+    ptr= start->next; // Address of second node
+    while(ptr->next!=NULL)
+        {
+            loc=ptr;
+            ptr=ptr->next;
+        }
+    loc->next = NULL;
+    cout<<"\n The last node is deleted"<<endl;
+    return;
+}
+}
+void traverse()
+{
+    temp=start;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<endl;
+        temp=temp->next;
+    }
+}
+int main()
+{
+    cout<< "after insertion"<<endl;
+    inser_beg(20);
+    inser_beg(30);
+    inser_beg(40);
+    traverse();
+
+    cout<< " insertion after element"<<endl;
+    insert_after(50,20);
+    insert_end(500);
+    traverse();
+    del_beg();
+    traverse();
+    del_end();
+    cout<<endl;
+    return 0;
+}
